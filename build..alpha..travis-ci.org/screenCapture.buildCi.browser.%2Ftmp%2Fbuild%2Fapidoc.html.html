@@ -47,7 +47,7 @@
 }
 </style>
 <h1>api documentation for
-    <a href="https://github.com/sebhildebrandt/systeminformation">systeminformation (v3.17.0)</a>
+    <a href="https://github.com/sebhildebrandt/systeminformation">systeminformation (v3.17.2)</a>
 </h1>
 <h4>Simple system and OS information library</h4>
 <div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
@@ -823,7 +823,7 @@
           exec("cat " + battery_path + "status", function (error, stdout) {
             if (!error) {
               let lines = stdout.toString().split('\n');
-              if (lines.length &gt; 0 &amp;&amp; lines[0]) result.ischarging = (lines[0].trim().toLowerCase() == 'charging')
+              if (lines.length &gt; 0 &amp;&amp; lines[0]) result.ischarging = (lines[0].trim().toLowerCase() === 'charging')
             }
             exec("cat " + battery_path + "cyclec_ount", function (error, stdout) {
               if (!error) {
@@ -861,12 +861,12 @@ n AppleSmartBattery -r | grep '\"MaxCapacity\"';ioreg -n AppleSmartBattery -r | 
           if (!error) {
             let lines = stdout.toString().replace(/ +/g, "").replace(/"+/g, "").split('\n');
             lines.forEach(function (line) {
-              if (line.indexOf('=') != -1) {
-                if (line.toLowerCase().indexOf('cyclecount') != -1) result.cyclecount = parseFloat(line.split('=')[1].trim());
-                if (line.toLowerCase().indexOf('ischarging') != -1) result.ischarging = (line.split('=')[1].trim().toLowerCase() == '
+              if (line.indexOf('=') !== -1) {
+                if (line.toLowerCase().indexOf('cyclecount') !== -1) result.cyclecount = parseFloat(line.split('=')[1].trim());
+                if (line.toLowerCase().indexOf('ischarging') !== -1) result.ischarging = (line.split('=')[1].trim().toLowerCase() === '
 yes');
-                if (line.toLowerCase().indexOf('maxcapacity') != -1) result.maxcapacity = parseFloat(line.split('=')[1].trim());
-                if (line.toLowerCase().indexOf('currentcapacity') != -1) result.currentcapacity = parseFloat(line.split('=')[1].
+                if (line.toLowerCase().indexOf('maxcapacity') !== -1) result.maxcapacity = parseFloat(line.split('=')[1].trim());
+                if (line.toLowerCase().indexOf('currentcapacity') !== -1) result.currentcapacity = parseFloat(line.split('=')[1].
 trim());
               }
             });
@@ -960,9 +960,9 @@ IO,OPT-IO,PHY-SEC,LOG-SEC,SCHED,RQ-SIZE,RA,WSAME", function (error, stdout) {
         exec('wmic logicaldisk get Caption,Description,DeviceID,DriveType,FileSystem,FreeSpace,Name,Size,VolumeName,VolumeSerialNumber
  /format:csv', function (error, stdout) {
           if (!error) {
-            let lines = stdout.split('\r\n').filter(line =&gt; line.trim() != '').filter((line, idx) =&gt; idx &gt; 0);
+            let lines = stdout.split('\r\n').filter(line =&gt; line.trim() !== '').filter((line, idx) =&gt; idx &gt; 0);
             lines.forEach(function (line) {
-              if (line != '') {
+              if (line !== '') {
                 line = line.replace('\r', '').split(',');
                 data.push({
                   name: line[7],
@@ -971,12 +971,12 @@ IO,OPT-IO,PHY-SEC,LOG-SEC,SCHED,RQ-SIZE,RA,WSAME", function (error, stdout) {
                   fstype: line[5].toLowerCase(),
                   mount: line[1],
                   size: line[8],
-                  physical: line[4] == '5' ? 'CD/DVD' : 'HDD',
+                  physical: line[4] === '5' ? 'CD/DVD' : 'HDD',
                   uuid: line[10],
                   label: line[9],
                   model: '',
                   serial: line[10],
-                  removable: line[4] == '2',
+                  removable: line[4] === '2',
                   protocol: ''
                 });
               }
@@ -1076,17 +1076,17 @@ si.cpu()
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
               let parts = line.split(':');
-              if (parts[0].toUpperCase().indexOf('L1D CACHE') != -1) {
-                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L1D CACHE') !== -1) {
+                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toUpperCase().indexOf('L1I CACHE') != -1) {
-                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L1I CACHE') !== -1) {
+                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toUpperCase().indexOf('L2 CACHE') != -1) {
-                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L2 CACHE') !== -1) {
+                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toUpperCase().indexOf('L3 CACHE') != -1) {
-                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L3 CACHE') !== -1) {
+                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
             });
           }
@@ -1100,17 +1100,17 @@ si.cpu()
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
               let parts = line.split(':');
-              if (parts[0].toLowerCase().indexOf('hw.l1icachesize') != -1) {
-                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l1icachesize') !== -1) {
+                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toLowerCase().indexOf('hw.l1dcachesize') != -1) {
-                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l1dcachesize') !== -1) {
+                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toLowerCase().indexOf('hw.l2cachesize') != -1) {
-                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l2cachesize') !== -1) {
+                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toLowerCase().indexOf('hw.l3cachesize') != -1) {
-                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l3cachesize') !== -1) {
+                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
             });
           }
@@ -1154,7 +1154,7 @@ si.cpu()
   return new Promise((resolve) =&gt; {
     process.nextTick(() =&gt; {
       let result = getCpuCurrentSpeedSync();
-      if (result == 0 &amp;&amp; _cpu_speed != '0.00') result = parseFloat(_cpu_speed);
+      if (result === 0 &amp;&amp; _cpu_speed !== '0.00') result = parseFloat(_cpu_speed);
 
       if (callback) { callback(result) }
       resolve(result);
@@ -1205,7 +1205,7 @@ si.cpu()
           if (!error) {
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
-              if (line.split(':')[0].toUpperCase().indexOf('FLAGS') != -1) {
+              if (line.split(':')[0].toUpperCase().indexOf('FLAGS') !== -1) {
                 result = line.split(':')[1].trim().toLowerCase();
               }
             });
@@ -1218,7 +1218,7 @@ si.cpu()
         exec("sysctl machdep.cpu.features", function (error, stdout) {
           if (!error) {
             let lines = stdout.toString().split('\n');
-            if (lines.length &gt; 0 &amp;&amp; lines[0].indexOf('machdep.cpu.features:') != -1) {
+            if (lines.length &gt; 0 &amp;&amp; lines[0].indexOf('machdep.cpu.features:') !== -1) {
               result = lines[0].split(':')[1].trim().toLowerCase();
             }
           }
@@ -1273,10 +1273,10 @@ si.cpu()
             lines.forEach(function (line) {
               let regex = /\+([^Â°]*)/g;
               let temps = line.match(regex);
-              if (line.split(':')[0].toUpperCase().indexOf('PHYSICAL') != -1) {
+              if (line.split(':')[0].toUpperCase().indexOf('PHYSICAL') !== -1) {
                 result.main = parseFloat(temps);
               }
-              if (line.split(':')[0].toUpperCase().indexOf('CORE ') != -1) {
+              if (line.split(':')[0].toUpperCase().indexOf('CORE ') !== -1) {
                 result.cores.push(parseFloat(temps));
               }
             });
@@ -1288,7 +1288,7 @@ si.cpu()
             resolve(result);
           } else {
             fs.stat('/sys/class/thermal/thermal_zone0/temp', function(err, stat) {
-              if(err == null) {
+              if(err === null) {
                 exec("cat /sys/class/thermal/thermal_zone0/temp", function (error, stdout) {
                   if (!error) {
                     let lines = stdout.toString().split('\n');
@@ -1326,7 +1326,7 @@ si.cpu()
         let id = 0;
         cores.forEach(function(key) {
           let value = smc.get(key);
-          if (id == 0) {
+          if (id === 0) {
             if (value &gt; 0) {
               result.main = value;
               result.max = value;
@@ -1507,7 +1507,7 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
               let lines = stdout.toString().split('\n');
               lines.forEach(function (line) {
                 line = line.trim();
-                if (line != '') {
+                if (line !== '') {
                   line = line.split(' ');
 
                   rIO += parseInt(line[1]);
@@ -1596,7 +1596,7 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
                 element.processes = processes;
 
                 l -= 1;
-                if (l == 0) {
+                if (l === 0) {
                   if (callback) { callback(result) }
                   resolve(result);
                 }
@@ -1858,7 +1858,7 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
        * @namespace
        * @property {string}  Id
        */
-</span>      return (obj.Id &amp;&amp; (obj.Id == id))
+</span>      return (obj.Id &amp;&amp; (obj.Id === id))
     });
     return (filtered.length &gt; 0);
   }
@@ -1978,15 +1978,15 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
 
   return new Promise((resolve, reject) =&gt; {
     process.nextTick(() =&gt; {
+      let data = [];
       if (_linux || _darwin) {
         let cmd = (_darwin ? "df -lkP | grep ^/" : "df -lkPT | grep ^/");
         exec(cmd, function (error, stdout) {
-          let data = [];
           if (!error) {
             let lines = stdout.toString().split('\n');
             //lines.splice(0, 1);
             lines.forEach(function (line) {
-              if (line != '') {
+              if (line !== '') {
                 line = line.replace(/ +/g, " ").split(' ');
                 data.push({
                   'fs': line[0],
@@ -2007,9 +2007,9 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
       }
       if (_windows) {
         exec('wmic logicaldisk get Caption,FileSystem,FreeSpace,Size', function (error, stdout) {
-          let lines = stdout.split('\r\n').filter(line =&gt; line.trim() != '').filter((line, idx) =&gt; idx &gt; 0);
+          let lines = stdout.split('\r\n').filter(line =&gt; line.trim() !== '').filter((line, idx) =&gt; idx &gt; 0);
           lines.forEach(function (line) {
-            if (line != '') {
+            if (line !== '') {
               line = line.trim().split(/\s\s+/);
               data.push({
                 'fs': line[0],
@@ -2090,9 +2090,9 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
               let lines = stdout.toString().split('\n');
               let fs_filter = [];
               lines.forEach(function (line) {
-                if (line != '') {
+                if (line !== '') {
                   line = line.replace(/[â”œâ”€â”‚â””]+/g, "").trim().split(' ');
-                  if (fs_filter.indexOf(line[0]) == -1) fs_filter.push(line[0])
+                  if (fs_filter.indexOf(line[0]) === -1) fs_filter.push(line[0])
                 }
               });
 
@@ -2102,7 +2102,7 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
                   let lines = stdout.toString().split('\n');
                   lines.forEach(function (line) {
                     line = line.trim();
-                    if (line != '') {
+                    if (line !== '') {
                       line = line.replace(/ +/g, " ").split(' ');
 
                       rx += parseInt(line[5]) * 512;
@@ -2131,7 +2131,7 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
               let lines = stdout.toString().split('\n');
               lines.forEach(function (line) {
                 line = line.trim();
-                if (line != '') {
+                if (line !== '') {
                   line = line.split(' ');
 
                   rx += parseInt(line[0]);
@@ -2517,9 +2517,9 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
     let currentController = {};
     let currentDisplay = {};
     for (let i = 0; i &lt; lines.length; i++) {
-      if ('' != lines[i].trim()) {
+      if ('' !== lines[i].trim()) {
         let start = lines[i].search(/\S|$/);
-        if (-1 == starts.indexOf(start)) {
+        if (-1 === starts.indexOf(start)) {
           starts.push(start);
         }
         level = starts.indexOf(start);
@@ -2535,24 +2535,24 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
         }
         lastlevel = level;
         let parts = lines[i].split(':');
-        if (2 == level) {       // grafics controller level
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('chipsetmodel') != -1) currentController.model
+        if (2 === level) {       // grafics controller level
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('chipsetmodel') !== -1) currentController.model
  = parts[1].trim();
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('bus') != -1) currentController.bus = parts[
-1].trim();
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vendor') != -1) currentController.vendor =
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('bus') !== -1) currentController.bus = parts
+[1].trim();
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vendor') !== -1) currentController.vendor =
 parts[1].split('(')[0].trim();
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(total)') != -1) {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(total)') !== -1) {
             currentController.vram = parseInt(parts[1]);    // in MB
             currentController.vramDynamic = false;
           }
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(dynamic,max)') != -1) {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(dynamic,max)') !== -1) {
             currentController.vram = parseInt(parts[1]);    // in MB
             currentController.vramDynamic = true;
           }
         }
-        if (3 == level) {       // display controller level
-          if (parts.length &gt; 1 &amp;&amp; '' == parts[1]) {
+        if (3 === level) {       // display controller level
+          if (parts.length &gt; 1 &amp;&amp; '' === parts[1]) {
             currentDisplay.model = parts[0].trim();
             currentDisplay.main = false;
             currentDisplay.builtin = false;
@@ -2561,22 +2561,22 @@ parts[1].split('(')[0].trim();
             currentDisplay.sizey = -1;
           }
         }
-        if (4 == level) {       // display controller details level
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('resolution') != -1) {
+        if (4 === level) {       // display controller details level
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('resolution') !== -1) {
             let resolution = parts[1].split('x');
             currentDisplay.resolutionx = (resolution.length &gt; 1 ? parseInt(resolution[0]) : 0);
             currentDisplay.resolutiony = (resolution.length &gt; 1 ? parseInt(resolution[1]) : 0);
           }
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('pixeldepth') != -1) currentDisplay.pixeldepth
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('pixeldepth') !== -1) currentDisplay.pixeldepth
  = parseInt(parts[1]); // in BIT
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('maindisplay') != -1 &amp;&amp; parts[1].replace(/ +/
-g, "").toLowerCase() == 'yes') currentDisplay.main = true;
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('built-in') != -1 &amp;&amp; parts[1].replace(/ +/g, "").
-toLowerCase() == 'yes') {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('maindisplay') !== -1 &amp;&amp; parts[1].replace(/ +/
+g, "").toLowerCase() === 'yes') currentDisplay.main = true;
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('built-in') !== -1 &amp;&amp; parts[1].replace(/ +/g
+, "").toLowerCase() === 'yes') {
             currentDisplay.builtin = true;
             currentDisplay.connection = '';
           }
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('connectiontype') != -1) {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('connectiontype') !== -1) {
             currentDisplay.builtin = false;
             currentDisplay.connection = parts[1].trim();
           }
@@ -2597,8 +2597,7 @@ toLowerCase() == 'yes') {
 
   function parseLinesLinuxControllers(lines) {
     let controllers = [];
-    let currentController = {};
-    let is_vga = ...</pre></li>
+    let currentController = {} ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 | - swapfree | X | X |  |  |
 | si.battery(cb) | X | X |  | battery information |
@@ -2650,7 +2649,7 @@ toLowerCase() == 'yes') {
         exec(cmd + args, function (error, stdout) {
           let statusCode = parseInt(stdout.toString());
           result.status = statusCode || 404;
-          result.ok = !error &amp;&amp; (statusCode == 200 || statusCode == 301 || statusCode == 302 || statusCode == 304);
+          result.ok = !error &amp;&amp; (statusCode === 200 || statusCode === 301 || statusCode === 302 || statusCode === 304);
           result.ms = (result.ok ? Date.now() - t : -1);
           if (callback) { callback(result) }
           resolve(result);
@@ -2822,11 +2821,11 @@ br&gt;host parameter is optional (default 8.8.8.8)|
                 let line = lines[0].replace(/,/g, ".").replace(/M/g, "");
                 line = line.trim().split('  ');
                 for (let i = 0; i &lt; line.length; i++) {
-                  if (line[i].toLowerCase().indexOf('total') != -1) result.swaptotal = parseFloat(line[i].split('=')[1].trim()) *
+                  if (line[i].toLowerCase().indexOf('total') !== -1) result.swaptotal = parseFloat(line[i].split('=')[1].trim()) *
 1024 * 1024;
-                  if (line[i].toLowerCase().indexOf('used') != -1) result.swapused = parseFloat(line[i].split('=')[1].trim()) *
+                  if (line[i].toLowerCase().indexOf('used') !== -1) result.swapused = parseFloat(line[i].split('=')[1].trim()) *
 1024 * 1024;
-                  if (line[i].toLowerCase().indexOf('free') != -1) result.swapfree = parseFloat(line[i].split('=')[1].trim()) *
+                  if (line[i].toLowerCase().indexOf('free') !== -1) result.swapfree = parseFloat(line[i].split('=')[1].trim()) *
 1024 * 1024;
 
                 }
@@ -2904,7 +2903,7 @@ br&gt;host parameter is optional (default 8.8.8.8)|
                   peerip = peeraddress.join(':');
                 }
                 let connstate = line[5];
-                if (connstate == 'VERBUNDEN') connstate = 'ESTABLISHED';
+                if (connstate === 'VERBUNDEN') connstate = 'ESTABLISHED';
                 if (connstate) {
                   result.push({
                     protocol: line[0],
@@ -2948,8 +2947,8 @@ ACK\\|LISTEN\\|CLOSING'";
                       peerip = peeraddress.join(':');
                     }
                     let connstate = line[1];
-                    if (connstate == 'ESTAB') connstate = 'ESTABLISHED';
-                    if (connstate == 'TIME-WAIT') connstate = 'TIME_WAIT';
+                    if (connstate === 'ESTAB') connstate = 'ESTABLISHED';
+                    if (connstate === 'TIME-WAIT') connstate = 'TIME_WAIT';
                     if (connstate) {
                       result.push({
                         protocol: line[0],
@@ -2971,8 +2970,7 @@ ACK\\|LISTEN\\|CLOSING'";
           }
         })
       }
-      if (_darwin) {
-        l ...</pre></li>
+      if (_darwin) { ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 | - iface | X | X |  | interface |
 | - operstate | X | X |  | up / down |
@@ -3060,10 +3058,10 @@ br&gt;defaults to first external network interface|
         let mac = '';
         if (ifaces.hasOwnProperty(dev)) {
           ifaces[dev].forEach(function (details) {
-            if (details.family == 'IPv4') {
+            if (details.family === 'IPv4') {
               ip4 = details.address
             }
-            if (details.family == 'IPv6') {
+            if (details.family === 'IPv6') {
               ip6 = details.address
             }
             mac = details.mac
@@ -3171,13 +3169,13 @@ _network[iface].ms &gt;= 500)) {
           exec(cmd, function (error, stdout) {
             result.operstate = (stdout.toString().split(':')[1] || '').trim();
             result.operstate = (result.operstate || '').toLowerCase();
-            result.operstate = (result.operstate == 'active' ? 'up' : (result.operstate == 'inactive' ? 'down' : 'unknown'));
+            result.operstate = (result.operstate === 'active' ? 'up' : (result.operstate === 'inactive' ? 'down' : 'unknown'));
             cmd = "netstat -bI " + iface;
             exec(cmd, function (error, stdout) {
               if (!error) {
                 lines = stdout.toString().split('\n');
                 // if there is less than 2 lines, no information for this interface was found
-                if (lines.length &gt; 1 &amp;&amp; lines[1].trim() != '') {
+                if (lines.length &gt; 1 &amp;&amp; lines[1].trim() !== '') {
                   // skip header line
                   // use the second line because it is tied to the NIC instead of the ipv4 or ipv6 address
                   stats = lines[1].replace(/ +/g, " ").split(' ');
@@ -3239,7 +3237,7 @@ _network[iface].ms &gt;= 500)) {
     process.nextTick(() =&gt; {
       let result = {
 
-        platform: (_platform == 'Windows_NT' ? 'Windows' : _platform),
+        platform: (_platform === 'Windows_NT' ? 'Windows' : _platform),
         distro: 'unknown',
         release: 'unknown',
         codename: '',
@@ -3264,7 +3262,7 @@ _network[iface].ms &gt;= 500)) {
 </span>          let release = {};
           let lines = stdout.toString().split('\n');
           lines.forEach(function (line) {
-            if (line.indexOf('=') != -1) {
+            if (line.indexOf('=') !== -1) {
               release[line.split('=')[0].trim().toUpperCase()] = line.split('=')[1].trim();
             }
           });
@@ -3283,11 +3281,11 @@ _network[iface].ms &gt;= 500)) {
         exec("sw_vers", function (error, stdout) {
           let lines = stdout.toString().split('\n');
           lines.forEach(function (line) {
-            if (line.indexOf('ProductName') != -1) {
+            if (line.indexOf('ProductName') !== -1) {
               result.distro = line.split(':')[1].trim();
               result.logofile = getLogoFile(result.distro);
             }
-            if (line.indexOf('ProductVersion') != -1) result.release = line.split(':')[1].trim();
+            if (line.indexOf('ProductVersion') !== -1) result.release = line.split(':')[1].trim();
           });
           if (callback) {
             callback(result)
@@ -3385,13 +3383,13 @@ _network[iface].ms &gt;= 500)) {
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-| - ...[0].priority | X | X |  | process priotity |
-| - ...[0].mem_vsz | X | X |  | process virtual memory size |
 | - ...[0].mem_rss | X | X |  | process mem resident set size |
 | - ...[0].nice | X | X |  | process nice value |
 | - ...[0].started | X | X |  | process start time |
 | - ...[0].state | X | X |  | process state (e.g. sleeping) |
 | - ...[0].tty | X | X |  | tty from which process was started |
+| - ...[0].user | X | X |  | user who started process |
+| - ...[0].command | X | X |  | process starting command |
 | si.<span class="apidocCodeKeywordSpan">processLoad</span>('apache2',cb) | X | X |  | detailed information about given
  process |
 | - proc | X | X |  | process name |
@@ -3425,7 +3423,7 @@ _network[iface].ms &gt;= 500)) {
     let result = [];
     for (let i = 0; i &lt; head.length; i++) {
       if (count &lt;= rights) {
-        if (head[i] == ' ' &amp;&amp; !space) {
+        if (head[i] === ' ' &amp;&amp; !space) {
           to = i - 1;
           result.push({
             from: from,
@@ -3435,9 +3433,9 @@ _network[iface].ms &gt;= 500)) {
           from = to + 2;
           count++;
         }
-        space = head[i] == ' ';
+        space = head[i] === ' ';
       } else {
-        if (head[i] != ' ' &amp;&amp; space) {
+        if (head[i] !== ' ' &amp;&amp; space) {
           to = i - 1;
           if (from &lt; to) {
             result.push({
@@ -3449,7 +3447,7 @@ _network[iface].ms &gt;= 500)) {
           from = to + 1;
           count++;
         }
-        space = head[i] == ' ';
+        space = head[i] === ' ';
       }
     }
     to = 1000;
@@ -3463,21 +3461,46 @@ _network[iface].ms &gt;= 500)) {
   }
 
   function parseLine(line) {
-    let pid = parseInt(line.substring(parsedhead[0].from, parsedhead[0].to));
-    let pcpu = parseFloat(line.substring(parsedhead[1].from, parsedhead[1].to).replace(/,/g, "."));
-    let pmem = parseFloat(line.substring(parsedhead[2].from, parsedhead[2].to).replace(/,/g, "."));
-    let priority = parseInt(line.substring(parsedhead[3].from, parsedhead[3].to));
-    let vsz = parseInt(line.substring(parsedhead[4].from, parsedhead[4].to));
-    let rss = parseInt(line.substring(parsedhead[5].from, parsedhead[5].to));
-    let nice = parseInt(line.substring(parsedhead[6].from, parsedhead[6].to));
-    let started = line.substring(parsedhead[7].from, parsedhead[7].to).trim();
-    let state = line.substring(parsedhead[8].from, parsedhead[8].to).trim();
-    state = (state[0] == 'R' ? 'running' : (state[0] == 'S' ? 'sleeping' : (state[0] == 'T' ? 'stopped' : (state[0] == 'W' ? 'paging
-' : (state[0] == 'X' ? 'dead' : (state[0] == 'Z' ? 'zombie' : ((state[0] == 'D' || state[0] == 'U') ? 'blocked' : 'unknown')))))));
-    let tty = line.substring(parsedhead[9].from, parsedhead[9].to).trim();
-    if (tty == '?' || tty == '??') tty = '';
-    let user = line.substring(parsedhead[10].from, parsedhead[10].to).trim();
-    let command = line.substring(parsedhead[11].from, parsedhead[11].to).trim().replace(/\[/g, "").replace(/]/g, "");
+    let offset = 0;
+    let offset2 = 0;
+
+    function checkColumn(i) {
+      offset = offset2;
+      offset2 = line.substring(parsedhead[i].to + offset, 1000).indexOf(' ')
+//      if (line.substring(parsedhead[i].to + offset, parsedhead[i].to + offset + 1) !== ' ') {
+//        offset2++;
+//      }
+    }
+
+    checkColumn(0);
+    let pid = parseInt(line.substring(parsedhead[0].from + offset, parsedhead[0].to + offset2));
+    checkColumn(1);
+    let pcpu = parseFloat(line.substring(parsedhead[1].from + offset, parsedhead[1].to + offset2).replace(/,/g, "."));
+    checkColumn(2);
+    let pmem = parseFloat(line.substring(parsedhead[2].from + offset, parsedhead[2].to + offset2).replace(/,/g, "."));
+    checkColumn(3);
+    let priority = parseInt(line.substring(parsedhead[3].from + offset, parsedhead[3].to + offset2));
+    checkColumn(4);
+    let vsz = parseInt(line.substring(parsedhead[4].from + offset, parsedhead[4].to + offset2));
+    checkColumn(5);
+    let rss = parseInt(line.substring(parsedhead[5].from + offset, parsedhead[5].to + offset2));
+    checkColumn(6);
+    let nice = parseInt(line.substring(parsedhead[6].from + offset, parsedhead[6].to + offset2));
+    checkColumn(7);
+    let started = line.substring(parsedhead[7].from + offset, parsedhead[7].to + offset2).trim();
+    checkColumn(8);
+    let state = line.substring(parsedhead[8].from + offset, parsedhead[8].to + offset2).trim();
+    state = (state[0] === 'R' ? 'running' : (state[0] === 'S' ? 'sleeping' : (state[0] === 'T' ? 'stopped' : (state[0] === 'W' ? '
+paging' : (state[0] === 'X' ? 'dead' : (state[0] === 'Z' ? 'zombie' : ((state[0] === 'D' || state[0] === 'U') ? 'blocked' : 'unknown
+')))))));
+    checkColumn(9);
+    let tty = line.substring(parsedhead[9].from + offset, parsedhead[9].to + offset2).trim();
+    if (tty === '?' || tty === '??') tty = '';
+    checkColumn(10);
+    let user = line.substring(parsedhead[10].from + offset, parsedhead[10].to + offset2).trim();
+    checkColumn(11);
+    let command = line.substring(parsedhead[11].from + offset, parsedhead[11].to + offset2).trim().replace(/\[/g, "").replace(/]/
+g, "");
 
     return ({
       pid: pid,
@@ -3501,10 +3524,10 @@ _network[iface].ms &gt;= 500)) {
     let result = [];
     if (lines.length &gt; 1) {
       let head = lines[0];
-      parsedhead = parseHead(head, 7);
+      parsedhead = parseHead(head, 8);
       lines.shift();
       lines.forEach(function (line) {
-        if (line.trim() != '') {
+        if (line.trim() !== '') {
           result.push(parseLine(line));
         }
       });
@@ -3517,22 +3540,7 @@ _network[iface].ms &gt;= 500)) {
     let user = (parts.length &gt;= 2 ? parseInt(parts[1]) : 0);
     let nice = (parts.length &gt;= 3 ? parseInt(parts[2]) : 0);
     let system = (parts.length &gt;= 4 ? parseInt(parts[3]) : 0);
-    let idle = (parts.length &gt;= 5 ? parseInt(parts[4]) : 0);
-    let iowait = (parts.length &gt;= 6 ? parseInt(parts[5]) : 0);
-    let irq = (parts.length &gt;= 7 ? parseInt(parts[6]) : 0);
-    let softirq = (parts.length &gt;= 8 ? parseInt(parts[7]) : 0);
-    let steal = (parts.length &gt;= 9 ? parseInt(parts[8]) : 0);
-    let guest = (parts.length &gt;= 10 ? parseInt(parts[9]) : 0);
-    let guest_nice = (parts.length &gt;= 11 ? parseInt(parts[10]) : 0);
-    return user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
-  }
-
-  function parseProcPidStat(line, all) {
-    let statparts = line.replace(/ +/g, " ").split(')');
-    if (statparts.length &gt;= 2) {
-      let parts = statparts[1].split(' ');
-      if (parts.length &gt;= 16) {
-        let pid = parseInt(statparts[0].split(' ')[0]); ...</pre></li>
+    let ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 | - cpus[] | X | X |  | current loads per CPU in % |
 | si.fullLoad(cb) | X | X |  | CPU-full load since bootup in % |
@@ -3581,13 +3589,13 @@ _network[iface].ms &gt;= 500)) {
       let srvs = srv.split('|');
       let comm = (_darwin) ? "ps -caxm -o pcpu,pmem,comm" : "ps axo pcpu,pmem,comm";
       let data = [];
-      if (srv != '' &amp;&amp; srvs.length &gt; 0) {
+      if (srv !== '' &amp;&amp; srvs.length &gt; 0) {
         exec(comm + " | grep -v grep | egrep '" + srv + "'", function (error, stdout) {
           if (!error) {
             let lines = stdout.toString().replace(/ +/g, " ").replace(/,+/g, ".").split('\n');
             srvs.forEach(function (srv) {
               let ps = lines.filter(function (e) {
-                return e.indexOf(srv) != -1
+                return e.indexOf(srv) !== -1
               });
               data.push({
                 'name': srv,
@@ -3721,41 +3729,41 @@ _network[iface].ms &gt;= 500)) {
           if (!error) {
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
-              if (line.indexOf(':') != -1) {
-                if (line.toLowerCase().indexOf('manufacturer') != -1) result.manufacturer = result.manufacturer || line.split(':')[
+              if (line.indexOf(':') !== -1) {
+                if (line.toLowerCase().indexOf('manufacturer') !== -1) result.manufacturer = result.manufacturer || line.split(':')[
 1].trim();
-                if (line.toLowerCase().indexOf('product name') != -1) result.model = line.split(':')[1].trim();
-                if (line.toLowerCase().indexOf('version') != -1) result.version = result.version || line.split(':')[1].trim();
-                if (line.toLowerCase().indexOf('serial number') != -1) result.serial = line.split(':')[1].trim();
-                if (line.toLowerCase().indexOf('uuid') != -1) result.uuid = line.split(':')[1].trim();
+                if (line.toLowerCase().indexOf('product name') !== -1) result.model = line.split(':')[1].trim();
+                if (line.toLowerCase().indexOf('version') !== -1) result.version = result.version || line.split(':')[1].trim();
+                if (line.toLowerCase().indexOf('serial number') !== -1) result.serial = line.split(':')[1].trim();
+                if (line.toLowerCase().indexOf('uuid') !== -1) result.uuid = line.split(':')[1].trim();
               }
             });
-            if (result.serial.toLowerCase().indexOf('o.e.m.') != -1) result.serial = '-';
-            if (result.manufacturer.toLowerCase().indexOf('o.e.m.') != -1) result.manufacturer = '';
-            if (result.model.toLowerCase().indexOf('o.e.m.') != -1) result.model = 'Computer';
-            if (result.version.toLowerCase().indexOf('o.e.m.') != -1) result.version = '-';
+            if (result.serial.toLowerCase().indexOf('o.e.m.') !== -1) result.serial = '-';
+            if (result.manufacturer.toLowerCase().indexOf('o.e.m.') !== -1) result.manufacturer = '';
+            if (result.model.toLowerCase().indexOf('o.e.m.') !== -1) result.model = 'Computer';
+            if (result.version.toLowerCase().indexOf('o.e.m.') !== -1) result.version = '-';
 
-            if (result.manufacturer == '' &amp;&amp; result.model == 'Computer' &amp;&amp; result.version == '-') {
+            if (result.manufacturer === '' &amp;&amp; result.model === 'Computer' &amp;&amp; result.version === '-') {
               // Check Raspberry Pi
               exec("grep Hardware /proc/cpuinfo; grep Serial /proc/cpuinfo; grep Revision /proc/cpuinfo", function (error, stdout
 ) {
                 if (!error) {
                   let lines = stdout.toString().split('\n');
                   lines.forEach(function (line) {
-                    if (line.indexOf(':') != -1) {
-                      if (line.toLowerCase().indexOf('hardware') != -1) result.model = line.split(':')[1].trim();
-                      if (line.toLowerCase().indexOf('revision') != -1) result.version = line.split(':')[1].trim();
-                      if (line.toLowerCase().indexOf('serial') != -1) result.serial = line.split(':')[1].trim();
+                    if (line.indexOf(':') !== -1) {
+                      if (line.toLowerCase().indexOf('hardware') !== -1) result.model = line.split(':')[1].trim();
+                      if (line.toLowerCase().indexOf('revision') !== -1) result.version = line.split(':')[1].trim();
+                      if (line.toLowerCase().indexOf('serial') !== -1) result.serial = line.split(':')[1].trim();
                     }
                   });
-                  if (result.model == 'BCM2709') {
+                  if (result.model === 'BCM2709') {
                     result.manufacturer = 'Raspberry Pi Foundation';
                     result.model = result.model + ' - Pi 2 Model B';
                     if (['a01041', 'a21041'].indexOf(result.version) &gt;= 0) {
                       result.version = result.version + ' - Rev. 1.1'
                     }
                   }
-                  if (result.model == 'BCM2708') {
+                  if (result.model === 'BCM2708') {
                     result.manufacturer = 'Raspberry Pi Foundation';
                     if (['0002', '0003'].indexOf(result.version) &gt;= 0) {
                       result.model = result.model + ' - Pi Model B';
@@ -3777,7 +3785,7 @@ _network[iface].ms &gt;= 500)) {
                       result.model = result.model + ' - Pi Model B+';
                       result.version = result.version + ' - Rev 1.0';
                     }
-                    if (['0013'].indexOf(result.ver ...</pre></li>
+                    if (['0013'] ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 
 | Function        | Linux | OSX | Win | Comments |
@@ -3859,7 +3867,7 @@ _network[iface].ms &gt;= 500)) {
             // lines / split
             let lines = stdout.toString().split('\n');
             result = parseUsers1(lines);
-            if (result.length == 0) {
+            if (result.length === 0) {
               exec("who; echo '---'; w | tail -n +2", function (error, stdout) {
                 if (!error) {
                   // lines / split
@@ -3903,21 +3911,21 @@ _network[iface].ms &gt;= 500)) {
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-| - ...[0].state | X | X |  | process state (e.g. sleeping) |
-| - ...[0].tty | X | X |  | tty from which process was started |
-| si.processLoad('apache2',cb) | X | X |  | detailed information about given process |
-| - proc | X | X |  | process name |
-| - pid | X | X |  | PID |
-| - cpu | X | X |  | process % CPU |
-| - mem | X | X |  | process % MEM |
-| si.<span class="apidocCodeKeywordSpan">users</span>(cb) | X | X |  | array of users online |
-| - [0].user | X | X |  | user name |
-| - [0].tty | X | X |  | terminal |
-| - [0].date | X | X |  | login date |
-| - [0].time | X | X |  | login time |
-| - [0].ip | X | X |  | ip address (remote login) |
-| - [0].command | X | X |  | last command or shell |
-| si.inetChecksite(url, cb) | X | X |  | response-time (ms) to fetch given URL |
+| 2.0.5          | 2016-03-02     | changed .gitignore |
+| 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
+| 2.0.3          | 2016-02-22     | optimized cpuCurrentspeed |
+| 2.0.2          | 2016-02-22     | added CoreOS identification |
+| 2.0.1          | 2016-01-07     | minor patch |
+| 2.0.0          | 2016-01-07     | new major version 2.0 |
+| 1.0.7          | 2015-11-27     | fixed: si.network_speed() |
+| 1.0.6          | 2015-09-17     | fixed: si.<span class="apidocCodeKeywordSpan">users</span>() |
+| 1.0.5          | 2015-09-14     | updated dependencies |
+| 1.0.4          | 2015-07-18     | updated docs |
+| 1.0.3          | 2015-07-18     | bugfix cpu cores |
+| 1.0.2          | 2015-07-18     | bugfix cpu_currentspeed, cpu_temperature |
+| 1.0.1          | 2015-07-18     | documentation update |
+| 1.0.0          | 2015-07-18     | bug-fixes, version bump, published as npm component |
+| 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
 ...</pre></li>
     </ul>
 
@@ -4094,17 +4102,17 @@ si.cpu()
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
               let parts = line.split(':');
-              if (parts[0].toUpperCase().indexOf('L1D CACHE') != -1) {
-                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L1D CACHE') !== -1) {
+                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toUpperCase().indexOf('L1I CACHE') != -1) {
-                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L1I CACHE') !== -1) {
+                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toUpperCase().indexOf('L2 CACHE') != -1) {
-                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L2 CACHE') !== -1) {
+                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toUpperCase().indexOf('L3 CACHE') != -1) {
-                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toUpperCase().indexOf('L3 CACHE') !== -1) {
+                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
             });
           }
@@ -4118,17 +4126,17 @@ si.cpu()
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
               let parts = line.split(':');
-              if (parts[0].toLowerCase().indexOf('hw.l1icachesize') != -1) {
-                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l1icachesize') !== -1) {
+                result.l1d = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toLowerCase().indexOf('hw.l1dcachesize') != -1) {
-                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l1dcachesize') !== -1) {
+                result.l1i = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toLowerCase().indexOf('hw.l2cachesize') != -1) {
-                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l2cachesize') !== -1) {
+                result.l2 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
-              if (parts[0].toLowerCase().indexOf('hw.l3cachesize') != -1) {
-                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') != -1 ? 1024 : 1);
+              if (parts[0].toLowerCase().indexOf('hw.l3cachesize') !== -1) {
+                result.l3 = parseInt(parts[1].trim()) * (parts[1].indexOf('K') !== -1 ? 1024 : 1);
               }
             });
           }
@@ -4172,7 +4180,7 @@ si.cpu()
   return new Promise((resolve) =&gt; {
     process.nextTick(() =&gt; {
       let result = getCpuCurrentSpeedSync();
-      if (result == 0 &amp;&amp; _cpu_speed != '0.00') result = parseFloat(_cpu_speed);
+      if (result === 0 &amp;&amp; _cpu_speed !== '0.00') result = parseFloat(_cpu_speed);
 
       if (callback) { callback(result) }
       resolve(result);
@@ -4223,7 +4231,7 @@ si.cpu()
           if (!error) {
             let lines = stdout.toString().split('\n');
             lines.forEach(function (line) {
-              if (line.split(':')[0].toUpperCase().indexOf('FLAGS') != -1) {
+              if (line.split(':')[0].toUpperCase().indexOf('FLAGS') !== -1) {
                 result = line.split(':')[1].trim().toLowerCase();
               }
             });
@@ -4236,7 +4244,7 @@ si.cpu()
         exec("sysctl machdep.cpu.features", function (error, stdout) {
           if (!error) {
             let lines = stdout.toString().split('\n');
-            if (lines.length &gt; 0 &amp;&amp; lines[0].indexOf('machdep.cpu.features:') != -1) {
+            if (lines.length &gt; 0 &amp;&amp; lines[0].indexOf('machdep.cpu.features:') !== -1) {
               result = lines[0].split(':')[1].trim().toLowerCase();
             }
           }
@@ -4291,10 +4299,10 @@ si.cpu()
             lines.forEach(function (line) {
               let regex = /\+([^Â°]*)/g;
               let temps = line.match(regex);
-              if (line.split(':')[0].toUpperCase().indexOf('PHYSICAL') != -1) {
+              if (line.split(':')[0].toUpperCase().indexOf('PHYSICAL') !== -1) {
                 result.main = parseFloat(temps);
               }
-              if (line.split(':')[0].toUpperCase().indexOf('CORE ') != -1) {
+              if (line.split(':')[0].toUpperCase().indexOf('CORE ') !== -1) {
                 result.cores.push(parseFloat(temps));
               }
             });
@@ -4306,7 +4314,7 @@ si.cpu()
             resolve(result);
           } else {
             fs.stat('/sys/class/thermal/thermal_zone0/temp', function(err, stat) {
-              if(err == null) {
+              if(err === null) {
                 exec("cat /sys/class/thermal/thermal_zone0/temp", function (error, stdout) {
                   if (!error) {
                     let lines = stdout.toString().split('\n');
@@ -4344,7 +4352,7 @@ si.cpu()
         let id = 0;
         cores.forEach(function(key) {
           let value = smc.get(key);
-          if (id == 0) {
+          if (id === 0) {
             if (value &gt; 0) {
               result.main = value;
               result.max = value;
@@ -4532,7 +4540,7 @@ function (error, stdout) {
                 element.processes = processes;
 
                 l -= 1;
-                if (l == 0) {
+                if (l === 0) {
                   if (callback) { callback(result) }
                   resolve(result);
                 }
@@ -4794,7 +4802,7 @@ Remember: all functions (except `version` and `time`) are implemented as asynchr
        * @namespace
        * @property {string}  Id
        */
-</span>      return (obj.Id &amp;&amp; (obj.Id == id))
+</span>      return (obj.Id &amp;&amp; (obj.Id === id))
     });
     return (filtered.length &gt; 0);
   }
@@ -4965,9 +4973,9 @@ IO,OPT-IO,PHY-SEC,LOG-SEC,SCHED,RQ-SIZE,RA,WSAME", function (error, stdout) {
         exec('wmic logicaldisk get Caption,Description,DeviceID,DriveType,FileSystem,FreeSpace,Name,Size,VolumeName,VolumeSerialNumber
  /format:csv', function (error, stdout) {
           if (!error) {
-            let lines = stdout.split('\r\n').filter(line =&gt; line.trim() != '').filter((line, idx) =&gt; idx &gt; 0);
+            let lines = stdout.split('\r\n').filter(line =&gt; line.trim() !== '').filter((line, idx) =&gt; idx &gt; 0);
             lines.forEach(function (line) {
-              if (line != '') {
+              if (line !== '') {
                 line = line.replace('\r', '').split(',');
                 data.push({
                   name: line[7],
@@ -4976,12 +4984,12 @@ IO,OPT-IO,PHY-SEC,LOG-SEC,SCHED,RQ-SIZE,RA,WSAME", function (error, stdout) {
                   fstype: line[5].toLowerCase(),
                   mount: line[1],
                   size: line[8],
-                  physical: line[4] == '5' ? 'CD/DVD' : 'HDD',
+                  physical: line[4] === '5' ? 'CD/DVD' : 'HDD',
                   uuid: line[10],
                   label: line[9],
                   model: '',
                   serial: line[10],
-                  removable: line[4] == '2',
+                  removable: line[4] === '2',
                   protocol: ''
                 });
               }
@@ -5092,7 +5100,7 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
               let lines = stdout.toString().split('\n');
               lines.forEach(function (line) {
                 line = line.trim();
-                if (line != '') {
+                if (line !== '') {
                   line = line.split(' ');
 
                   rIO += parseInt(line[1]);
@@ -5155,15 +5163,15 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
 
   return new Promise((resolve, reject) =&gt; {
     process.nextTick(() =&gt; {
+      let data = [];
       if (_linux || _darwin) {
         let cmd = (_darwin ? "df -lkP | grep ^/" : "df -lkPT | grep ^/");
         exec(cmd, function (error, stdout) {
-          let data = [];
           if (!error) {
             let lines = stdout.toString().split('\n');
             //lines.splice(0, 1);
             lines.forEach(function (line) {
-              if (line != '') {
+              if (line !== '') {
                 line = line.replace(/ +/g, " ").split(' ');
                 data.push({
                   'fs': line[0],
@@ -5184,9 +5192,9 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
       }
       if (_windows) {
         exec('wmic logicaldisk get Caption,FileSystem,FreeSpace,Size', function (error, stdout) {
-          let lines = stdout.split('\r\n').filter(line =&gt; line.trim() != '').filter((line, idx) =&gt; idx &gt; 0);
+          let lines = stdout.split('\r\n').filter(line =&gt; line.trim() !== '').filter((line, idx) =&gt; idx &gt; 0);
           lines.forEach(function (line) {
-            if (line != '') {
+            if (line !== '') {
               line = line.trim().split(/\s\s+/);
               data.push({
                 'fs': line[0],
@@ -5267,9 +5275,9 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
               let lines = stdout.toString().split('\n');
               let fs_filter = [];
               lines.forEach(function (line) {
-                if (line != '') {
+                if (line !== '') {
                   line = line.replace(/[â”œâ”€â”‚â””]+/g, "").trim().split(' ');
-                  if (fs_filter.indexOf(line[0]) == -1) fs_filter.push(line[0])
+                  if (fs_filter.indexOf(line[0]) === -1) fs_filter.push(line[0])
                 }
               });
 
@@ -5279,7 +5287,7 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
                   let lines = stdout.toString().split('\n');
                   lines.forEach(function (line) {
                     line = line.trim();
-                    if (line != '') {
+                    if (line !== '') {
                       line = line.replace(/ +/g, " ").split(' ');
 
                       rx += parseInt(line[5]) * 512;
@@ -5308,7 +5316,7 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
               let lines = stdout.toString().split('\n');
               lines.forEach(function (line) {
                 line = line.trim();
-                if (line != '') {
+                if (line !== '') {
                   line = line.split(' ');
 
                   rx += parseInt(line[0]);
@@ -5383,9 +5391,9 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
     let currentController = {};
     let currentDisplay = {};
     for (let i = 0; i &lt; lines.length; i++) {
-      if ('' != lines[i].trim()) {
+      if ('' !== lines[i].trim()) {
         let start = lines[i].search(/\S|$/);
-        if (-1 == starts.indexOf(start)) {
+        if (-1 === starts.indexOf(start)) {
           starts.push(start);
         }
         level = starts.indexOf(start);
@@ -5401,24 +5409,24 @@ cat /sys/block/$mount/stat | sed -r 's/ +/;/g' | sed -r 's/^;//'; done";
         }
         lastlevel = level;
         let parts = lines[i].split(':');
-        if (2 == level) {       // grafics controller level
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('chipsetmodel') != -1) currentController.model
+        if (2 === level) {       // grafics controller level
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('chipsetmodel') !== -1) currentController.model
  = parts[1].trim();
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('bus') != -1) currentController.bus = parts[
-1].trim();
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vendor') != -1) currentController.vendor =
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('bus') !== -1) currentController.bus = parts
+[1].trim();
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vendor') !== -1) currentController.vendor =
 parts[1].split('(')[0].trim();
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(total)') != -1) {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(total)') !== -1) {
             currentController.vram = parseInt(parts[1]);    // in MB
             currentController.vramDynamic = false;
           }
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(dynamic,max)') != -1) {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('vram(dynamic,max)') !== -1) {
             currentController.vram = parseInt(parts[1]);    // in MB
             currentController.vramDynamic = true;
           }
         }
-        if (3 == level) {       // display controller level
-          if (parts.length &gt; 1 &amp;&amp; '' == parts[1]) {
+        if (3 === level) {       // display controller level
+          if (parts.length &gt; 1 &amp;&amp; '' === parts[1]) {
             currentDisplay.model = parts[0].trim();
             currentDisplay.main = false;
             currentDisplay.builtin = false;
@@ -5427,22 +5435,22 @@ parts[1].split('(')[0].trim();
             currentDisplay.sizey = -1;
           }
         }
-        if (4 == level) {       // display controller details level
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('resolution') != -1) {
+        if (4 === level) {       // display controller details level
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('resolution') !== -1) {
             let resolution = parts[1].split('x');
             currentDisplay.resolutionx = (resolution.length &gt; 1 ? parseInt(resolution[0]) : 0);
             currentDisplay.resolutiony = (resolution.length &gt; 1 ? parseInt(resolution[1]) : 0);
           }
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('pixeldepth') != -1) currentDisplay.pixeldepth
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('pixeldepth') !== -1) currentDisplay.pixeldepth
  = parseInt(parts[1]); // in BIT
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('maindisplay') != -1 &amp;&amp; parts[1].replace(/ +/
-g, "").toLowerCase() == 'yes') currentDisplay.main = true;
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('built-in') != -1 &amp;&amp; parts[1].replace(/ +/g, "").
-toLowerCase() == 'yes') {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('maindisplay') !== -1 &amp;&amp; parts[1].replace(/ +/
+g, "").toLowerCase() === 'yes') currentDisplay.main = true;
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('built-in') !== -1 &amp;&amp; parts[1].replace(/ +/g
+, "").toLowerCase() === 'yes') {
             currentDisplay.builtin = true;
             currentDisplay.connection = '';
           }
-          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('connectiontype') != -1) {
+          if (parts.length &gt; 1 &amp;&amp; parts[0].replace(/ +/g, "").toLowerCase().indexOf('connectiontype') !== -1) {
             currentDisplay.builtin = false;
             currentDisplay.connection = parts[1].trim();
           }
@@ -5463,8 +5471,7 @@ toLowerCase() == 'yes') {
 
   function parseLinesLinuxControllers(lines) {
     let controllers = [];
-    let currentController = {};
-    let is_vga = ...</pre></li>
+    let currentController = {} ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 | - swapfree | X | X |  |  |
 | si.battery(cb) | X | X |  | battery information |
@@ -5521,7 +5528,7 @@ toLowerCase() == 'yes') {
         exec(cmd + args, function (error, stdout) {
           let statusCode = parseInt(stdout.toString());
           result.status = statusCode || 404;
-          result.ok = !error &amp;&amp; (statusCode == 200 || statusCode == 301 || statusCode == 302 || statusCode == 304);
+          result.ok = !error &amp;&amp; (statusCode === 200 || statusCode === 301 || statusCode === 302 || statusCode === 304);
           result.ms = (result.ok ? Date.now() - t : -1);
           if (callback) { callback(result) }
           resolve(result);
@@ -5651,7 +5658,7 @@ awk '{print $2}'");
       for (let dev in ifaces) {
         if (ifaces.hasOwnProperty(dev)) {
           ifaces[dev].forEach(function (details) {
-            if (details &amp;&amp; details.internal == false) {
+            if (details &amp;&amp; details.internal === false) {
               ifacename = ifacename || dev;
             }
           })
@@ -5662,7 +5669,23 @@ awk '{print $2}'");
   }
   return _default_iface;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    process.nextTick(() =&gt; {
+      if (_windows) {
+let error = new Error(NOT_SUPPORTED);
+if (callback) { callback(NOT_SUPPORTED) }
+reject(error);
+      }
+
+      iface = iface || network.<span class="apidocCodeKeywordSpan">getDefaultNetworkInterface</span>();
+      srv = srv || '';
+
+      // use closure to track Æ’ completion
+      let functionProcessed = (function () {
+let totalFunctions = 14;
+
+return function () {
+...</pre></li>
     </ul>
 
 
@@ -5710,7 +5733,7 @@ awk '{print $2}'");
                   peerip = peeraddress.join(':');
                 }
                 let connstate = line[5];
-                if (connstate == 'VERBUNDEN') connstate = 'ESTABLISHED';
+                if (connstate === 'VERBUNDEN') connstate = 'ESTABLISHED';
                 if (connstate) {
                   result.push({
                     protocol: line[0],
@@ -5754,8 +5777,8 @@ ACK\\|LISTEN\\|CLOSING'";
                       peerip = peeraddress.join(':');
                     }
                     let connstate = line[1];
-                    if (connstate == 'ESTAB') connstate = 'ESTABLISHED';
-                    if (connstate == 'TIME-WAIT') connstate = 'TIME_WAIT';
+                    if (connstate === 'ESTAB') connstate = 'ESTABLISHED';
+                    if (connstate === 'TIME-WAIT') connstate = 'TIME_WAIT';
                     if (connstate) {
                       result.push({
                         protocol: line[0],
@@ -5777,8 +5800,7 @@ ACK\\|LISTEN\\|CLOSING'";
           }
         })
       }
-      if (_darwin) {
-        l ...</pre></li>
+      if (_darwin) { ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 | - iface | X | X |  | interface |
 | - operstate | X | X |  | up / down |
@@ -5866,10 +5888,10 @@ br&gt;defaults to first external network interface|
         let mac = '';
         if (ifaces.hasOwnProperty(dev)) {
           ifaces[dev].forEach(function (details) {
-            if (details.family == 'IPv4') {
+            if (details.family === 'IPv4') {
               ip4 = details.address
             }
-            if (details.family == 'IPv6') {
+            if (details.family === 'IPv6') {
               ip6 = details.address
             }
             mac = details.mac
@@ -5977,13 +5999,13 @@ _network[iface].ms &gt;= 500)) {
           exec(cmd, function (error, stdout) {
             result.operstate = (stdout.toString().split(':')[1] || '').trim();
             result.operstate = (result.operstate || '').toLowerCase();
-            result.operstate = (result.operstate == 'active' ? 'up' : (result.operstate == 'inactive' ? 'down' : 'unknown'));
+            result.operstate = (result.operstate === 'active' ? 'up' : (result.operstate === 'inactive' ? 'down' : 'unknown'));
             cmd = "netstat -bI " + iface;
             exec(cmd, function (error, stdout) {
               if (!error) {
                 lines = stdout.toString().split('\n');
                 // if there is less than 2 lines, no information for this interface was found
-                if (lines.length &gt; 1 &amp;&amp; lines[1].trim() != '') {
+                if (lines.length &gt; 1 &amp;&amp; lines[1].trim() !== '') {
                   // skip header line
                   // use the second line because it is tied to the NIC instead of the ipv4 or ipv6 address
                   stats = lines[1].replace(/ +/g, " ").split(' ');
@@ -6050,7 +6072,7 @@ _network[iface].ms &gt;= 500)) {
     process.nextTick(() =&gt; {
       let result = {
 
-        platform: (_platform == 'Windows_NT' ? 'Windows' : _platform),
+        platform: (_platform === 'Windows_NT' ? 'Windows' : _platform),
         distro: 'unknown',
         release: 'unknown',
         codename: '',
@@ -6075,7 +6097,7 @@ _network[iface].ms &gt;= 500)) {
 </span>          let release = {};
           let lines = stdout.toString().split('\n');
           lines.forEach(function (line) {
-            if (line.indexOf('=') != -1) {
+            if (line.indexOf('=') !== -1) {
               release[line.split('=')[0].trim().toUpperCase()] = line.split('=')[1].trim();
             }
           });
@@ -6094,11 +6116,11 @@ _network[iface].ms &gt;= 500)) {
         exec("sw_vers", function (error, stdout) {
           let lines = stdout.toString().split('\n');
           lines.forEach(function (line) {
-            if (line.indexOf('ProductName') != -1) {
+            if (line.indexOf('ProductName') !== -1) {
               result.distro = line.split(':')[1].trim();
               result.logofile = getLogoFile(result.distro);
             }
-            if (line.indexOf('ProductVersion') != -1) result.release = line.split(':')[1].trim();
+            if (line.indexOf('ProductVersion') !== -1) result.release = line.split(':')[1].trim();
           });
           if (callback) {
             callback(result)
@@ -6311,7 +6333,7 @@ _network[iface].ms &gt;= 500)) {
     let result = [];
     for (let i = 0; i &lt; head.length; i++) {
       if (count &lt;= rights) {
-        if (head[i] == ' ' &amp;&amp; !space) {
+        if (head[i] === ' ' &amp;&amp; !space) {
           to = i - 1;
           result.push({
             from: from,
@@ -6321,9 +6343,9 @@ _network[iface].ms &gt;= 500)) {
           from = to + 2;
           count++;
         }
-        space = head[i] == ' ';
+        space = head[i] === ' ';
       } else {
-        if (head[i] != ' ' &amp;&amp; space) {
+        if (head[i] !== ' ' &amp;&amp; space) {
           to = i - 1;
           if (from &lt; to) {
             result.push({
@@ -6335,7 +6357,7 @@ _network[iface].ms &gt;= 500)) {
           from = to + 1;
           count++;
         }
-        space = head[i] == ' ';
+        space = head[i] === ' ';
       }
     }
     to = 1000;
@@ -6349,21 +6371,46 @@ _network[iface].ms &gt;= 500)) {
   }
 
   function parseLine(line) {
-    let pid = parseInt(line.substring(parsedhead[0].from, parsedhead[0].to));
-    let pcpu = parseFloat(line.substring(parsedhead[1].from, parsedhead[1].to).replace(/,/g, "."));
-    let pmem = parseFloat(line.substring(parsedhead[2].from, parsedhead[2].to).replace(/,/g, "."));
-    let priority = parseInt(line.substring(parsedhead[3].from, parsedhead[3].to));
-    let vsz = parseInt(line.substring(parsedhead[4].from, parsedhead[4].to));
-    let rss = parseInt(line.substring(parsedhead[5].from, parsedhead[5].to));
-    let nice = parseInt(line.substring(parsedhead[6].from, parsedhead[6].to));
-    let started = line.substring(parsedhead[7].from, parsedhead[7].to).trim();
-    let state = line.substring(parsedhead[8].from, parsedhead[8].to).trim();
-    state = (state[0] == 'R' ? 'running' : (state[0] == 'S' ? 'sleeping' : (state[0] == 'T' ? 'stopped' : (state[0] == 'W' ? 'paging
-' : (state[0] == 'X' ? 'dead' : (state[0] == 'Z' ? 'zombie' : ((state[0] == 'D' || state[0] == 'U') ? 'blocked' : 'unknown')))))));
-    let tty = line.substring(parsedhead[9].from, parsedhead[9].to).trim();
-    if (tty == '?' || tty == '??') tty = '';
-    let user = line.substring(parsedhead[10].from, parsedhead[10].to).trim();
-    let command = line.substring(parsedhead[11].from, parsedhead[11].to).trim().replace(/\[/g, "").replace(/]/g, "");
+    let offset = 0;
+    let offset2 = 0;
+
+    function checkColumn(i) {
+      offset = offset2;
+      offset2 = line.substring(parsedhead[i].to + offset, 1000).indexOf(' ')
+//      if (line.substring(parsedhead[i].to + offset, parsedhead[i].to + offset + 1) !== ' ') {
+//        offset2++;
+//      }
+    }
+
+    checkColumn(0);
+    let pid = parseInt(line.substring(parsedhead[0].from + offset, parsedhead[0].to + offset2));
+    checkColumn(1);
+    let pcpu = parseFloat(line.substring(parsedhead[1].from + offset, parsedhead[1].to + offset2).replace(/,/g, "."));
+    checkColumn(2);
+    let pmem = parseFloat(line.substring(parsedhead[2].from + offset, parsedhead[2].to + offset2).replace(/,/g, "."));
+    checkColumn(3);
+    let priority = parseInt(line.substring(parsedhead[3].from + offset, parsedhead[3].to + offset2));
+    checkColumn(4);
+    let vsz = parseInt(line.substring(parsedhead[4].from + offset, parsedhead[4].to + offset2));
+    checkColumn(5);
+    let rss = parseInt(line.substring(parsedhead[5].from + offset, parsedhead[5].to + offset2));
+    checkColumn(6);
+    let nice = parseInt(line.substring(parsedhead[6].from + offset, parsedhead[6].to + offset2));
+    checkColumn(7);
+    let started = line.substring(parsedhead[7].from + offset, parsedhead[7].to + offset2).trim();
+    checkColumn(8);
+    let state = line.substring(parsedhead[8].from + offset, parsedhead[8].to + offset2).trim();
+    state = (state[0] === 'R' ? 'running' : (state[0] === 'S' ? 'sleeping' : (state[0] === 'T' ? 'stopped' : (state[0] === 'W' ? '
+paging' : (state[0] === 'X' ? 'dead' : (state[0] === 'Z' ? 'zombie' : ((state[0] === 'D' || state[0] === 'U') ? 'blocked' : 'unknown
+')))))));
+    checkColumn(9);
+    let tty = line.substring(parsedhead[9].from + offset, parsedhead[9].to + offset2).trim();
+    if (tty === '?' || tty === '??') tty = '';
+    checkColumn(10);
+    let user = line.substring(parsedhead[10].from + offset, parsedhead[10].to + offset2).trim();
+    checkColumn(11);
+    let command = line.substring(parsedhead[11].from + offset, parsedhead[11].to + offset2).trim().replace(/\[/g, "").replace(/]/
+g, "");
 
     return ({
       pid: pid,
@@ -6387,10 +6434,10 @@ _network[iface].ms &gt;= 500)) {
     let result = [];
     if (lines.length &gt; 1) {
       let head = lines[0];
-      parsedhead = parseHead(head, 7);
+      parsedhead = parseHead(head, 8);
       lines.shift();
       lines.forEach(function (line) {
-        if (line.trim() != '') {
+        if (line.trim() !== '') {
           result.push(parseLine(line));
         }
       });
@@ -6403,22 +6450,7 @@ _network[iface].ms &gt;= 500)) {
     let user = (parts.length &gt;= 2 ? parseInt(parts[1]) : 0);
     let nice = (parts.length &gt;= 3 ? parseInt(parts[2]) : 0);
     let system = (parts.length &gt;= 4 ? parseInt(parts[3]) : 0);
-    let idle = (parts.length &gt;= 5 ? parseInt(parts[4]) : 0);
-    let iowait = (parts.length &gt;= 6 ? parseInt(parts[5]) : 0);
-    let irq = (parts.length &gt;= 7 ? parseInt(parts[6]) : 0);
-    let softirq = (parts.length &gt;= 8 ? parseInt(parts[7]) : 0);
-    let steal = (parts.length &gt;= 9 ? parseInt(parts[8]) : 0);
-    let guest = (parts.length &gt;= 10 ? parseInt(parts[9]) : 0);
-    let guest_nice = (parts.length &gt;= 11 ? parseInt(parts[10]) : 0);
-    return user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice;
-  }
-
-  function parseProcPidStat(line, all) {
-    let statparts = line.replace(/ +/g, " ").split(')');
-    if (statparts.length &gt;= 2) {
-      let parts = statparts[1].split(' ');
-      if (parts.length &gt;= 16) {
-        let pid = parseInt(statparts[0].split(' ')[0]); ...</pre></li>
+    let ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 | - cpus[] | X | X |  | current loads per CPU in % |
 | si.fullLoad(cb) | X | X |  | CPU-full load since bootup in % |
@@ -6495,13 +6527,13 @@ _network[iface].ms &gt;= 500)) {
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-| - ...[0].priority | X | X |  | process priotity |
-| - ...[0].mem_vsz | X | X |  | process virtual memory size |
 | - ...[0].mem_rss | X | X |  | process mem resident set size |
 | - ...[0].nice | X | X |  | process nice value |
 | - ...[0].started | X | X |  | process start time |
 | - ...[0].state | X | X |  | process state (e.g. sleeping) |
 | - ...[0].tty | X | X |  | tty from which process was started |
+| - ...[0].user | X | X |  | user who started process |
+| - ...[0].command | X | X |  | process starting command |
 | si.<span class="apidocCodeKeywordSpan">processLoad</span>('apache2',cb) | X | X |  | detailed information about given
  process |
 | - proc | X | X |  | process name |
@@ -6543,13 +6575,13 @@ _network[iface].ms &gt;= 500)) {
       let srvs = srv.split('|');
       let comm = (_darwin) ? "ps -caxm -o pcpu,pmem,comm" : "ps axo pcpu,pmem,comm";
       let data = [];
-      if (srv != '' &amp;&amp; srvs.length &gt; 0) {
+      if (srv !== '' &amp;&amp; srvs.length &gt; 0) {
         exec(comm + " | grep -v grep | egrep '" + srv + "'", function (error, stdout) {
           if (!error) {
             let lines = stdout.toString().replace(/ +/g, " ").replace(/,+/g, ".").split('\n');
             srvs.forEach(function (srv) {
               let ps = lines.filter(function (e) {
-                return e.indexOf(srv) != -1
+                return e.indexOf(srv) !== -1
               });
               data.push({
                 'name': srv,
@@ -6637,7 +6669,7 @@ _network[iface].ms &gt;= 500)) {
             // lines / split
             let lines = stdout.toString().split('\n');
             result = parseUsers1(lines);
-            if (result.length == 0) {
+            if (result.length === 0) {
               exec("who; echo '---'; w | tail -n +2", function (error, stdout) {
                 if (!error) {
                   // lines / split
@@ -6681,21 +6713,21 @@ _network[iface].ms &gt;= 500)) {
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-| - ...[0].state | X | X |  | process state (e.g. sleeping) |
-| - ...[0].tty | X | X |  | tty from which process was started |
-| si.processLoad('apache2',cb) | X | X |  | detailed information about given process |
-| - proc | X | X |  | process name |
-| - pid | X | X |  | PID |
-| - cpu | X | X |  | process % CPU |
-| - mem | X | X |  | process % MEM |
-| si.<span class="apidocCodeKeywordSpan">users</span>(cb) | X | X |  | array of users online |
-| - [0].user | X | X |  | user name |
-| - [0].tty | X | X |  | terminal |
-| - [0].date | X | X |  | login date |
-| - [0].time | X | X |  | login time |
-| - [0].ip | X | X |  | ip address (remote login) |
-| - [0].command | X | X |  | last command or shell |
-| si.inetChecksite(url, cb) | X | X |  | response-time (ms) to fetch given URL |
+| 2.0.5          | 2016-03-02     | changed .gitignore |
+| 2.0.4          | 2016-02-22     | tiny correction - removed double quotes CPU brand, ... |
+| 2.0.3          | 2016-02-22     | optimized cpuCurrentspeed |
+| 2.0.2          | 2016-02-22     | added CoreOS identification |
+| 2.0.1          | 2016-01-07     | minor patch |
+| 2.0.0          | 2016-01-07     | new major version 2.0 |
+| 1.0.7          | 2015-11-27     | fixed: si.network_speed() |
+| 1.0.6          | 2015-09-17     | fixed: si.<span class="apidocCodeKeywordSpan">users</span>() |
+| 1.0.5          | 2015-09-14     | updated dependencies |
+| 1.0.4          | 2015-07-18     | updated docs |
+| 1.0.3          | 2015-07-18     | bugfix cpu cores |
+| 1.0.2          | 2015-07-18     | bugfix cpu_currentspeed, cpu_temperature |
+| 1.0.1          | 2015-07-18     | documentation update |
+| 1.0.0          | 2015-07-18     | bug-fixes, version bump, published as npm component |
+| 0.0.3          | 2014-04-14     | bug-fix (cpu_speed) |
 ...</pre></li>
     </ul>
 
@@ -6714,7 +6746,7 @@ _network[iface].ms &gt;= 500)) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function cores() {
-  if (_cores == 0) {
+  if (_cores === 0) {
     _cores = os.cpus().length;
   }
   return _cores;
@@ -6753,7 +6785,7 @@ process.nextTick(() =&gt; {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
      */
-    return (obj.Id &amp;&amp; (obj.Id == id))
+    return (obj.Id &amp;&amp; (obj.Id === id))
   });
   return (filtered.length &gt; 0);
 }
@@ -6791,7 +6823,7 @@ return new Promise((resolve, reject) =&gt; {
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     'serial': disk.serial,
-    'removable': disk.rm == '1',
+    'removable': disk.rm === '1',
     'protocol': disk.tran
   })
 });
@@ -6838,7 +6870,7 @@ return stdout.toString()
     <li>example usage<pre class="apidocCodePre">...
     'model': disk.model,
     'serial': disk.serial,
-    'removable': disk.rm == '1',
+    'removable': disk.rm === '1',
     'protocol': disk.tran
   })
 });
