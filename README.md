@@ -1,6 +1,6 @@
 # npmdoc-systeminformation
 
-#### api documentation for  [systeminformation (v3.17.0)](https://github.com/sebhildebrandt/systeminformation)  [![npm package](https://img.shields.io/npm/v/npmdoc-systeminformation.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-systeminformation) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-systeminformation.svg)](https://travis-ci.org/npmdoc/node-npmdoc-systeminformation)
+#### basic api documentation for  [systeminformation (v3.17.2)](https://github.com/sebhildebrandt/systeminformation)  [![npm package](https://img.shields.io/npm/v/npmdoc-systeminformation.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-systeminformation) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-systeminformation.svg)](https://travis-ci.org/npmdoc/node-npmdoc-systeminformation)
 
 #### Simple system and OS information library
 
@@ -33,13 +33,13 @@
     "devDependencies": {},
     "directories": {},
     "dist": {
-        "shasum": "d8010335d5ba4a10cf9800b1b8ab23b5f8a613fd",
-        "tarball": "https://registry.npmjs.org/systeminformation/-/systeminformation-3.17.0.tgz"
+        "shasum": "a3df4403a681f73090bcad3d7ff66984e8f5fc0a",
+        "tarball": "https://registry.npmjs.org/systeminformation/-/systeminformation-3.17.2.tgz"
     },
     "engines": {
         "node": ">=4.0.0"
     },
-    "gitHead": "07c772a1479023984098bc80a42b29545ed99e94",
+    "gitHead": "dc1604cb5690a6fabd4656d1d6f69f1f87eeaeaf",
     "gypfile": true,
     "homepage": "https://github.com/sebhildebrandt/systeminformation",
     "keywords": [
@@ -95,7 +95,8 @@
         "install": "node-gyp rebuild",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "version": "3.17.0"
+    "version": "3.17.2",
+    "bin": {}
 }
 ```
 
